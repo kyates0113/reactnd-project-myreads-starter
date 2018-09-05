@@ -6,16 +6,25 @@ import Search from './Search';
 
 class BooksApp extends React.Component {
   state = {
+    bookList: []
+  }
 
-
-    showSearchPage: false
+  componentDidMount(){
+    BooksAPI.getAll().then(( books ) =>{
+      this.setState({ bookList: books })
+    })
   }
 
   render() {
+           console.log(this.state.bookList)
     return (
       <div className="app">
-        <Home />
+        <Home 
+          bookList={this.state.bookList}
+        />
         <Search />
+
+
       </div>
     )
   }
