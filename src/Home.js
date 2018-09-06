@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import Book from './Book';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
 
 	render() {
-    console.log(this.props.bookList);
 		return (
           <div className="list-books">
             <div className="list-books-title">
@@ -77,7 +77,9 @@ class Home extends Component {
               </div>
             </div>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <Link 
+                to = "/Search"
+              >Add a book</Link>
             </div>
           </div>
 		);

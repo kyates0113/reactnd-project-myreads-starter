@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import * as BooksAPI from './BooksAPI';
 import Book from './Book';
+import { Link } from 'react-router-dom';
 
 class Search extends Component {
 	state = {
@@ -12,22 +13,31 @@ class Search extends Component {
 		this.setState({
 			query: query
 		})
-		this.getSearchedBooks(query)
-	}
+		this.getSearchedBooks(query)			
+		}
 
 	getSearchedBooks = (query) => {
-		BooksAPI.search(query).then((searchResults) => {
-			this.setState({searchResults: searchResults})
-		})
+		if(query){
+			BooksAPI.search(query).then((searchResults) => {
+				if(searchResults.error) {
+					this.setState({searchResults:[]})
+				} else {
+					this.setState({searchResults: searchResults})
+				}
+			})
+		} else {
+			this.setState({searchResults: []})
+		}
 	}
 
 	render() {
-
-
 		return (
 			<div className="search-books">
             	<div className="search-books-bar">
-             		<a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+             		<Link
+             			to="/" 
+             			className="close-search"
+             			>Close</Link>
               		<div className="search-books-input-wrapper">
                  		<input 
                  			type="text" 
@@ -46,6 +56,7 @@ class Search extends Component {
               				<li key={searchResults.id}> 
               				<Book 
               					book={searchResults}
+              					changeShelf = {this.props.changeShelf}
           					/>
           					</li>
               			))
