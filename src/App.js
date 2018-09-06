@@ -17,17 +17,22 @@ class BooksApp extends React.Component {
 
   changeShelf = (book, shelf) => {
     BooksAPI.update(book, shelf);
+
+    BooksAPI.getAll().then(( books ) =>{
+      this.setState({ bookList: books })
+    })
   }
 
   render() {
     return (
       <div className="app">
-        <Home 
+       {/* <Home 
           bookList={this.state.bookList}
           changeShelf={this.changeShelf}
-        />
-        <Search />
+        />*/}
 
+        <Search />
+       
 
       </div>
     )
