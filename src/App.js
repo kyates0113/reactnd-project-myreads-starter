@@ -15,12 +15,16 @@ class BooksApp extends React.Component {
     })
   }
 
+  changeShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf);
+  }
+
   render() {
-           console.log(this.state.bookList)
     return (
       <div className="app">
         <Home 
           bookList={this.state.bookList}
+          changeShelf={this.changeShelf}
         />
         <Search />
 
